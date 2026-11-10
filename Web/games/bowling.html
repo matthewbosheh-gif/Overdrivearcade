@@ -1,0 +1,1091 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0e">
+<title>Over Drive Arcade | Play Games</title>
+<link rel="icon" href="logo.png" type="image/png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0b0b0e;
+  --card: #13131a;
+  --hover: #1d1d28;
+  --border: #282835;
+  --text: #ffffff;
+  --muted: #9292a8;
+  --accent: #ff3333;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+body.light {
+  --bg: #f3f3f7;
+  --card: #ffffff;
+  --hover: #eeeeF5;
+  --border: #d9d9e3;
+  --text: #181820;
+  --muted: #66667a;
+}
+
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+a { text-decoration: none; color: inherit; }
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+  max-width: 1200px;
+  padding: 14px 24px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.logo img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.logo span { color: var(--accent); }
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+nav a {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 12px;
+  border-radius: 9px;
+  transition: .2s;
+}
+
+nav a:hover {
+  color: var(--accent);
+  background: var(--card);
+}
+
+.menu-btn {
+  display: none;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 10px 13px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 24px;
+}
+
+.hero {
+  margin: 30px 0;
+  padding: 55px 40px;
+  border: 1px solid #47272c;
+  border-radius: 22px;
+  background: linear-gradient(120deg,
+    #30171b, #191720, #12121a);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  height: 300px;
+  width: 300px;
+  right: -70px;
+  top: -90px;
+  background: radial-gradient(circle,
+    rgba(255,51,51,.22), transparent 70%);
+  pointer-events: none;
+}
+
+.hero h1 {
+  color: #ffffff;
+  font-size: clamp(32px, 5vw, 53px);
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin: 15px 0;
+}
+
+.hero p {
+  color: #c1b4bf;
+  max-width: 470px;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.eyebrow {
+  color: #ff8888;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+
+.btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 20px;
+  font-weight: 800;
+  transition: .2s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.12);
+}
+
+section {
+  margin-top: 43px;
+  scroll-margin-top: 100px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 23px;
+  letter-spacing: -.6px;
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+
+.count {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+  font-size: 11px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.search {
+  flex: 1;
+  min-width: 200px;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  outline: none;
+}
+
+.search:focus { border-color: var(--accent); }
+
+.sort {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.categories {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.category {
+  white-space: nowrap;
+  background: var(--card);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 10px 15px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.category:hover { border-color: var(--accent); }
+
+.category.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.game {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+
+.game:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: 0 15px 30px rgba(0,0,0,.2);
+}
+
+.thumbnail {
+  height: 155px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 58px;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  overflow: hidden;
+}
+
+.thumbnail span {
+  transition: transform .25s;
+  filter: drop-shadow(0 10px 12px rgba(0,0,0,.25));
+}
+
+.game:hover .thumbnail span {
+  transform: scale(1.15) rotate(-5deg);
+}
+
+.game-info { padding: 15px; }
+
+.game-name {
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.game-type {
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  margin: 9px 0 15px;
+  text-transform: uppercase;
+}
+
+.game-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.play {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 9px;
+  padding: 11px;
+  font-size: 12px;
+  font-weight: 800;
+  flex: 1;
+}
+
+.play:hover { filter: brightness(1.13); }
+
+.favorite {
+  width: 40px;
+  background: var(--hover);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  font-size: 20px;
+}
+
+.favorite.saved { color: var(--accent); }
+
+.empty {
+  border: 1px dashed var(--border);
+  background: var(--card);
+  border-radius: 14px;
+  padding: 30px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.hidden { display: none; }
+
+.sponsor {
+  background: linear-gradient(130deg,
+    #211416, var(--card));
+  border: 1px dashed var(--accent);
+  border-radius: 18px;
+  padding: 28px;
+}
+
+.sponsor h3 {
+  color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.sponsor p {
+  color: #aaa0ab;
+  font-size: 13px;
+}
+
+.sponsor a {
+  display: inline-block;
+  padding: 14px 20px;
+  margin-top: 8px;
+  background: var(--accent);
+  color: white;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.link-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 20px;
+  transition: .2s;
+}
+
+.link-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.link-card strong {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 14px;
+}
+
+.link-card small {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.settings {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.settings label {
+  color: var(--muted);
+  display: block;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.colors { display: flex; gap: 10px; }
+
+.color {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.color.active {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+.about {
+  max-width: 750px;
+  line-height: 1.9;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  margin-top: 65px;
+  padding: 28px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+@media(max-width: 1000px) {
+  .games { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media(max-width: 760px) {
+  .container { padding: 0 16px; }
+  .navbar { padding: 12px 16px; }
+  .menu-btn { display: block; }
+
+  nav {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 70px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  nav.open { display: flex; }
+
+  .hero { padding: 32px 25px; }
+  .games { grid-template-columns: repeat(2, 1fr); }
+  .links { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width: 440px) {
+  .logo { font-size: 13px; }
+  .logo img { width: 38px; height: 38px; }
+  .games { gap: 10px; }
+  .thumbnail { height: 110px; font-size: 45px; }
+  .game-info { padding: 11px; }
+  .game-name { font-size: 12px; }
+  .links { grid-template-columns: 1fr; }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="navbar">
+    <a href="#home" class="logo">
+      <img src="logo.png" alt="Over Drive Arcade">
+      <div>OVER DRIVE <span>ARCADE</span></div>
+    </a>
+
+    <button class="menu-btn" id="menuBtn"
+      aria-expanded="false" aria-label="Open navigation">
+      ☰ Menu
+    </button>
+
+    <nav id="navigation">
+      <a href="#home">Home</a>
+      <a href="#games">Games</a>
+      <a href="#favorites">Favorites</a>
+      <a href="#recent">Recently Played</a>
+      <a href="#partners">Partners</a>
+      <a href="#settings">Settings</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" id="home">
+
+  <div class="hero">
+    <div class="eyebrow">● OVER DRIVE GAME NETWORK</div>
+    <h1>Your arcade.<br>Your games.</h1>
+    <p>
+      Play your favorite games directly on Over Drive Arcade.
+      Explore, save favorites, and enjoy the full gaming experience.
+    </p>
+    <button class="btn" id="startPlaying">
+      ▶ Start Playing
+    </button>
+  </div>
+
+  <section id="games">
+    <div class="section-title">
+      <div>
+        <h2>Game Library</h2>
+        <p class="subtitle">Choose a game and start playing.</p>
+      </div>
+      <span class="count" id="gameCount"></span>
+    </div>
+
+    <div class="toolbar">
+      <input
+        type="search"
+        class="search"
+        id="searchInput"
+        placeholder="Search games..."
+        aria-label="Search games">
+
+      <select class="sort" id="sortSelect"
+        aria-label="Sort games">
+        <option value="default">Featured Order</option>
+        <option value="az">A to Z</option>
+        <option value="za">Z to A</option>
+      </select>
+    </div>
+
+    <div class="categories" id="categories"></div>
+    <div class="games" id="gameGrid"></div>
+    <div id="noResults" class="empty hidden">
+      No matching games found.
+    </div>
+  </section>
+
+  <section id="favorites">
+    <div class="section-title">
+      <div>
+        <h2>My Favorites</h2>
+        <p class="subtitle">Your saved games.</p>
+      </div>
+    </div>
+    <div class="games" id="favoriteGrid"></div>
+    <div class="empty" id="favoriteEmpty">
+      You haven't favorited any games yet.
+    </div>
+  </section>
+
+  <section id="recent">
+    <div class="section-title">
+      <div>
+        <h2>Recently Played</h2>
+        <p class="subtitle">Pick up where you left off.</p>
+      </div>
+    </div>
+    <div class="games" id="recentGrid"></div>
+    <div class="empty" id="recentEmpty">
+      Your recently played games will appear here.
+    </div>
+  </section>
+
+  <section id="partners">
+    <div class="section-title">
+      <h2>Official Sponsors & Partners</h2>
+    </div>
+
+    <div class="sponsor">
+      <h3>Over Drive Partner Network</h3>
+      <p>Visit our partner site and explore more content.</p>
+      <a href="https://zchat.men"
+        target="_blank" rel="nofollow noopener noreferrer">
+        Visit Our Partner Site ↗
+      </a>
+    </div>
+  </section>
+
+  <section id="external">
+    <div class="section-title">
+      <div>
+        <h2>More Gaming Hubs</h2>
+        <p class="subtitle">Explore our original external links.</p>
+      </div>
+    </div>
+
+    <div class="links" id="externalLinks"></div>
+  </section>
+
+  <section id="settings">
+    <div class="section-title">
+      <h2>Customize Your Arcade</h2>
+    </div>
+
+    <div class="settings">
+      <div>
+        <label for="themeSelect">Appearance</label>
+        <select class="sort" id="themeSelect">
+          <option value="dark">Dark Obsidian</option>
+          <option value="light">Light Mode</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Accent Color</label>
+        <div class="colors" id="accentColors"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-title">
+      <h2>About Over Drive Arcade</h2>
+    </div>
+    <div class="about">
+      <p>
+        Over Drive Arcade brings browser games together
+        in one place. Explore the game library, play directly
+        on the site, save your favorites, and discover new titles.
+      </p>
+      <p>
+        We're continuously expanding the arcade with
+        more games and features.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© <span id="year"></span> Over Drive Arcade</span>
+    <span>BUILT FOR PLAYERS</span>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+/*
+  GAME LIBRARY
+
+  All games are stored directly in the "games" folder.
+
+  Example:
+  games/2048.html
+  games/battleship.html
+
+  Clicking Play navigates to the actual HTML file.
+  This avoids iframe compatibility problems.
+*/
+
+const games = [
+  ["2048", "2048.html", "Puzzle", "🔢", "#50403a", "#a67a4c"],
+  ["Air Hockey", "airhockey.html", "Sports", "🏒", "#123751", "#146b91"],
+  ["Anti Flap", "antiflap.html", "Arcade", "🐦", "#244e65", "#44a2b0"],
+  ["Ant Jump", "antjump.html", "Arcade", "🐜", "#4b291c", "#9d5932"],
+  ["Balloon Pop", "balloonpop.html", "Casual", "🎈", "#591b50", "#b84083"],
+  ["Battleship", "battleship.html", "Strategy", "🚢", "#172f4d", "#39799b"],
+  ["Block Drop", "blockdrop.html", "Puzzle", "🧱", "#372a67", "#7564c8"],
+  ["Bowling", "bowling.html", "Sports", "🎳", "#422745", "#b04b80"],
+  ["Breakout", "breakout.html", "Arcade", "🕹️", "#4d241e", "#bc573c"],
+  ["Bubble Shooter", "bubbleshooter.html", "Puzzle", "🫧", "#174c56", "#2996a5"],
+  ["Checkers", "checkers.html", "Strategy", "♟️", "#3b2421", "#9c5948"],
+  ["Connect Four", "connectfour.html", "Strategy", "🔴", "#192c64", "#315bcc"],
+  ["Crossroad", "crossroad.html", "Arcade", "🚗", "#285037", "#69a451"],
+  ["Dino Run", "dinorun.html", "Arcade", "🦖", "#3d4630", "#819448"],
+  ["Fruit Slice", "fruitslice.html", "Casual", "🍉", "#56321f", "#c47a36"],
+  ["Gem Match", "gemmatch.html", "Puzzle", "💎", "#29215c", "#7554bb"]
+].map(([name, file, category, emoji, c1, c2]) => ({
+  name, file, category, emoji, c1, c2
+}));
+
+const links = [
+  ["UBGHyper Engine", "EXTERNAL GAME LIBRARY", "https://ubghyper.github.io/"],
+  ["Retro Bowl Edition", "FOOTBALL GAME HUB", "https://retrobowlunblocked.org"],
+  ["KeyDash Hub", "TYPING GAME", "https://keydash.app"],
+  ["Classroom 6x", "GAME HUB", "https://sites.google.com/view/classroom6x/"],
+  ["io Games Net", "MULTIPLAYER", "https://netgames.io/games/"],
+  ["OpenFront Alpha", "STRATEGY", "https://openfront.io"],
+  ["Media Hub", "DOCUMENTARIES", "https://watchdocumentaries.com"]
+];
+
+const keys = {
+  favorites: "overdrive_favorites",
+  recent: "overdrive_recent",
+  theme: "overdrive_theme",
+  accent: "overdrive_accent"
+};
+
+function load(key, fallback) {
+  try {
+    const value = localStorage.getItem(key);
+    return value === null ? fallback : JSON.parse(value);
+  } catch {
+    return fallback;
+  }
+}
+
+function save(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Continue working if storage is unavailable.
+  }
+}
+
+let favorites = load(keys.favorites, []);
+let recent = load(keys.recent, []);
+
+if (!Array.isArray(favorites)) favorites = [];
+if (!Array.isArray(recent)) recent = [];
+
+let selectedCategory = "All";
+
+function findGame(file) {
+  return games.find(game => game.file === file);
+}
+
+/*
+  FIXED GAME LAUNCHER
+
+  No iframe, modal, or overlay.
+
+  Each game opens directly using:
+  games/filename.html
+*/
+
+function playGame(file) {
+  const game = findGame(file);
+  if (!game) return;
+
+  recent = [
+    file,
+    ...recent.filter(item => item !== file)
+  ].slice(0, 8);
+
+  save(keys.recent, recent);
+
+  // Open as a normal webpage, on the same website.
+  window.location.assign("games/" + encodeURIComponent(game.file));
+}
+
+function toggleFavorite(file) {
+  if (favorites.includes(file)) {
+    favorites = favorites.filter(item => item !== file);
+  } else {
+    favorites.unshift(file);
+  }
+
+  save(keys.favorites, favorites);
+  renderAll();
+}
+
+function createGameCard(game) {
+  const card = document.createElement("article");
+  card.className = "game";
+
+  const thumb = document.createElement("div");
+  thumb.className = "thumbnail";
+  thumb.style.setProperty("--c1", game.c1);
+  thumb.style.setProperty("--c2", game.c2);
+
+  const emoji = document.createElement("span");
+  emoji.textContent = game.emoji;
+  thumb.appendChild(emoji);
+
+  const info = document.createElement("div");
+  info.className = "game-info";
+
+  const name = document.createElement("div");
+  name.className = "game-name";
+  name.textContent = game.name;
+
+  const type = document.createElement("div");
+  type.className = "game-type";
+  type.textContent = game.category;
+
+  const buttons = document.createElement("div");
+  buttons.className = "game-buttons";
+
+  const play = document.createElement("button");
+  play.className = "play";
+  play.textContent = "▶ Play Now";
+  play.addEventListener("click", () => playGame(game.file));
+
+  const fav = document.createElement("button");
+  fav.className = "favorite";
+  fav.textContent = favorites.includes(game.file) ? "♥" : "♡";
+  fav.classList.toggle("saved", favorites.includes(game.file));
+  fav.setAttribute("aria-label", "Favorite " + game.name);
+  fav.setAttribute("aria-pressed", String(favorites.includes(game.file)));
+
+  fav.addEventListener("click", () => toggleFavorite(game.file));
+
+  buttons.append(play, fav);
+  info.append(name, type, buttons);
+  card.append(thumb, info);
+
+  return card;
+}
+
+function renderInto(elementId, list) {
+  const target = document.getElementById(elementId);
+  target.replaceChildren();
+
+  const fragment = document.createDocumentFragment();
+
+  list.forEach(game => {
+    fragment.appendChild(createGameCard(game));
+  });
+
+  target.appendChild(fragment);
+}
+
+function renderGames() {
+  const query = document.getElementById("searchInput")
+    .value.trim().toLowerCase();
+
+  const sort = document.getElementById("sortSelect").value;
+
+  const filtered = games.filter(game => {
+    const matchesSearch =
+      game.name.toLowerCase().includes(query) ||
+      game.category.toLowerCase().includes(query);
+
+    const matchesCategory =
+      selectedCategory === "All" ||
+      selectedCategory === game.category;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  if (sort === "az") {
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  if (sort === "za") {
+    filtered.sort((a, b) => b.name.localeCompare(a.name));
+  }
+
+  renderInto("gameGrid", filtered);
+
+  document.getElementById("gameCount").textContent =
+    filtered.length + " / " + games.length + " GAMES";
+
+  document.getElementById("noResults")
+    .classList.toggle("hidden", filtered.length > 0);
+}
+
+function renderFavorites() {
+  const list = favorites.map(findGame).filter(Boolean);
+
+  renderInto("favoriteGrid", list);
+
+  document.getElementById("favoriteEmpty")
+    .classList.toggle("hidden", list.length > 0);
+}
+
+function renderRecent() {
+  const list = recent.map(findGame).filter(Boolean);
+
+  renderInto("recentGrid", list);
+
+  document.getElementById("recentEmpty")
+    .classList.toggle("hidden", list.length > 0);
+}
+
+function renderAll() {
+  renderGames();
+  renderFavorites();
+  renderRecent();
+}
+
+function renderCategories() {
+  const categories = [
+    "All",
+    ...new Set(games.map(game => game.category))
+  ];
+
+  const container = document.getElementById("categories");
+  container.replaceChildren();
+
+  categories.forEach(category => {
+    const button = document.createElement("button");
+    button.className = "category";
+    button.textContent = category;
+
+    if (category === selectedCategory) {
+      button.classList.add("active");
+    }
+
+    button.addEventListener("click", () => {
+      selectedCategory = category;
+      renderCategories();
+      renderGames();
+    });
+
+    container.appendChild(button);
+  });
+}
+
+function renderLinks() {
+  const container = document.getElementById("externalLinks");
+
+  links.forEach(([name, description, url]) => {
+    const anchor = document.createElement("a");
+
+    anchor.className = "link-card";
+    anchor.href = url;
+    anchor.target = "_blank";
+    anchor.rel = "nofollow noopener noreferrer";
+
+    const title = document.createElement("strong");
+    title.textContent = name + " ↗";
+
+    const subtitle = document.createElement("small");
+    subtitle.textContent = description;
+
+    anchor.append(title, subtitle);
+    container.appendChild(anchor);
+  });
+}
+
+/* Appearance settings */
+
+const themeSelect = document.getElementById("themeSelect");
+
+function setTheme(theme) {
+  const safeTheme = theme === "light" ? "light" : "dark";
+
+  document.body.classList.toggle("light", safeTheme === "light");
+  themeSelect.value = safeTheme;
+  save(keys.theme, safeTheme);
+}
+
+setTheme(load(keys.theme, "dark"));
+
+themeSelect.addEventListener("change", () => {
+  setTheme(themeSelect.value);
+});
+
+const accentColors = [
+  ["Red", "#ff3333"],
+  ["Blue", "#3989ff"],
+  ["Purple", "#9b59ff"],
+  ["Green", "#23bb83"],
+  ["Orange", "#ff9033"]
+];
+
+const accentContainer = document.getElementById("accentColors");
+
+function setAccent(hex) {
+  const valid = accentColors.some(item => item[1] === hex);
+  const selected = valid ? hex : "#ff3333";
+
+  document.documentElement.style.setProperty("--accent", selected);
+  save(keys.accent, selected);
+
+  accentContainer.querySelectorAll("button").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.color === selected
+    );
+  });
+}
+
+accentColors.forEach(([name, hex]) => {
+  const button = document.createElement("button");
+
+  button.className = "color";
+  button.style.background = hex;
+  button.dataset.color = hex;
+  button.title = name;
+  button.setAttribute("aria-label", name + " theme color");
+
+  button.addEventListener("click", () => setAccent(hex));
+  accentContainer.appendChild(button);
+});
+
+setAccent(load(keys.accent, "#ff3333"));
+
+/* Mobile navigation */
+
+const menuButton = document.getElementById("menuBtn");
+const navigation = document.getElementById("navigation");
+
+menuButton.addEventListener("click", () => {
+  const open = navigation.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded", String(open));
+});
+
+navigation.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navigation.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+  });
+});
+
+/* Page events */
+
+document.getElementById("startPlaying")
+  .addEventListener("click", () => {
+    document.getElementById("games").scrollIntoView({
+      behavior: "smooth"
+    });
+  });
+
+document.getElementById("searchInput")
+  .addEventListener("input", renderGames);
+
+document.getElementById("sortSelect")
+  .addEventListener("change", renderGames);
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+/* Initialize */
+
+renderCategories();
+renderLinks();
+renderAll();
+
+</script>
+</body>
+</html>
